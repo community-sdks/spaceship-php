@@ -3,13 +3,13 @@
 ## saveContactAttributes
 
 - Purpose: Save contact attributes
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\SavecontactattributesRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\SavecontactattributesResponse
+- Request DTO: CommunitySDKs\Spaceship\DTO\Request\SaveContactAttributesRequest
+- Response DTO: CommunitySDKs\Spaceship\DTO\Response\SaveContactAttributesResponse
 - Method/Path: PUT /v1/contacts/attributes
 
 Example input data:
 ```php
-$request = SavecontactattributesRequest::sample();
+$request = SaveContactAttributesRequest::sample();
 ```
 
 Example output JSON:
@@ -20,13 +20,13 @@ Example output JSON:
 ## readAttributeDetails
 
 - Purpose: Read attribute details
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\ReadattributedetailsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\ReadattributedetailsResponse
+- Request DTO: CommunitySDKs\Spaceship\DTO\Request\ReadAttributeDetailsRequest
+- Response DTO: CommunitySDKs\Spaceship\DTO\Response\ReadAttributeDetailsResponse
 - Method/Path: GET /v1/contacts/attributes/{contact}
 
 Example input data:
 ```php
-$request = ReadattributedetailsRequest::sample();
+$request = ReadAttributeDetailsRequest::sample();
 ```
 
 Example output JSON:

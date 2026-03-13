@@ -6,7 +6,7 @@ namespace CommunitySDKs\Spaceship\Tests\Service;
 
 use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
 use CommunitySDKs\Spaceship\Http\ApiClient;
-use CommunitySDKs\Spaceship\Service\SellerhubService;
+use CommunitySDKs\Spaceship\Service\SellerHubService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -24,8 +24,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\CreatecheckoutlinkRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\CreateCheckoutLinkRequest::sample();
         $response = $service->createCheckoutLink($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -40,8 +40,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetsellerhubdomainlistRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainListRequest::sample();
         $response = $service->getSellerHubDomainList($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -56,8 +56,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\CreatesellerhubdomainRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\CreateSellerHubDomainRequest::sample();
         $response = $service->createSellerHubDomain($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -72,8 +72,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetsellerhubdomainRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainRequest::sample();
         $response = $service->getSellerHubDomain($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -88,8 +88,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdatesellerhubdomainRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateSellerHubDomainRequest::sample();
         $response = $service->updateSellerHubDomain($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -104,8 +104,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DeletesellerhubdomainRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DeleteSellerHubDomainRequest::sample();
         $response = $service->deleteSellerHubDomain($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -120,8 +120,8 @@ final class SellerhubServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new SellerhubService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetverificationrecordsRequest::sample();
+        $service = new SellerHubService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetVerificationRecordsRequest::sample();
         $response = $service->getVerificationRecords($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);

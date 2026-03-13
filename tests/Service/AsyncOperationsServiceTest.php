@@ -25,7 +25,7 @@ final class AsyncOperationsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new AsyncOperationsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetasyncoperationdetailsRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetAsyncOperationDetailsRequest::sample();
         $response = $service->getAsyncOperationDetails($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);

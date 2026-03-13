@@ -6,7 +6,7 @@ namespace CommunitySDKs\Spaceship\Tests\Service;
 
 use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
 use CommunitySDKs\Spaceship\Http\ApiClient;
-use CommunitySDKs\Spaceship\Service\DnsRecordsService;
+use CommunitySDKs\Spaceship\Service\DNSRecordsService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -24,8 +24,8 @@ final class DnsRecordsServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new DnsRecordsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\SaverecordsRequest::sample();
+        $service = new DNSRecordsService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\SaveRecordsRequest::sample();
         $response = $service->saveRecords($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -40,8 +40,8 @@ final class DnsRecordsServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new DnsRecordsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DeleterecordsRequest::sample();
+        $service = new DNSRecordsService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DeleteRecordsRequest::sample();
         $response = $service->deleteRecords($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -56,8 +56,8 @@ final class DnsRecordsServiceTest extends TestCase
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
-        $service = new DnsRecordsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetresourcerecordslistRequest::sample();
+        $service = new DNSRecordsService($apiClient);
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetResourceRecordsListRequest::sample();
         $response = $service->getResourceRecordsList($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);

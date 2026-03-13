@@ -25,7 +25,7 @@ final class ContactsAttributesServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new ContactsAttributesService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\SavecontactattributesRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\SaveContactAttributesRequest::sample();
         $response = $service->saveContactAttributes($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -41,7 +41,7 @@ final class ContactsAttributesServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new ContactsAttributesService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\ReadattributedetailsRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\ReadAttributeDetailsRequest::sample();
         $response = $service->readAttributeDetails($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);

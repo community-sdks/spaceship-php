@@ -15,7 +15,7 @@ final class ContactsService
     /**
      * Save contact details.
      */
-    public function saveDetails(\CommunitySDKs\Spaceship\DTO\Request\SavedetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\SavedetailsResponse
+    public function saveDetails(\CommunitySDKs\Spaceship\DTO\Request\SaveDetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\SaveDetailsResponse
     {
         $response = $this->apiClient->request(
             'PUT',
@@ -25,20 +25,20 @@ final class ContactsService
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\SavedetailsException(
+            throw new \CommunitySDKs\Spaceship\Exception\Operation\SaveDetailsException(
                 'API request failed for saveDetails',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\SavedetailsResponse::fromPsrResponse($response);
+        return \CommunitySDKs\Spaceship\DTO\Response\SaveDetailsResponse::fromPsrResponse($response);
     }
 
     /**
      * Read contact details.
      */
-    public function readDetails(\CommunitySDKs\Spaceship\DTO\Request\ReaddetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\ReaddetailsResponse
+    public function readDetails(\CommunitySDKs\Spaceship\DTO\Request\ReadDetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\ReadDetailsResponse
     {
         $response = $this->apiClient->request(
             'GET',
@@ -48,14 +48,14 @@ final class ContactsService
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\ReaddetailsException(
+            throw new \CommunitySDKs\Spaceship\Exception\Operation\ReadDetailsException(
                 'API request failed for readDetails',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\ReaddetailsResponse::fromPsrResponse($response);
+        return \CommunitySDKs\Spaceship\DTO\Response\ReadDetailsResponse::fromPsrResponse($response);
     }
 
 }

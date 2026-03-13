@@ -15,7 +15,7 @@ final class AsyncOperationsService
     /**
      * Obtain async operation details.
      */
-    public function getAsyncOperationDetails(\CommunitySDKs\Spaceship\DTO\Request\GetasyncoperationdetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetasyncoperationdetailsResponse
+    public function getAsyncOperationDetails(\CommunitySDKs\Spaceship\DTO\Request\GetAsyncOperationDetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetAsyncOperationDetailsResponse
     {
         $response = $this->apiClient->request(
             'GET',
@@ -25,14 +25,14 @@ final class AsyncOperationsService
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetasyncoperationdetailsException(
+            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetAsyncOperationDetailsException(
                 'API request failed for getAsyncOperationDetails',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetasyncoperationdetailsResponse::fromPsrResponse($response);
+        return \CommunitySDKs\Spaceship\DTO\Response\GetAsyncOperationDetailsResponse::fromPsrResponse($response);
     }
 
 }

@@ -11,9 +11,9 @@ use GuzzleHttp\ClientInterface;
 use CommunitySDKs\Spaceship\Service\AsyncOperationsService;
 use CommunitySDKs\Spaceship\Service\ContactsAttributesService;
 use CommunitySDKs\Spaceship\Service\ContactsService;
-use CommunitySDKs\Spaceship\Service\DnsRecordsService;
+use CommunitySDKs\Spaceship\Service\DNSRecordsService;
 use CommunitySDKs\Spaceship\Service\DomainsService;
-use CommunitySDKs\Spaceship\Service\SellerhubService;
+use CommunitySDKs\Spaceship\Service\SellerHubService;
 
 final class Client
 {
@@ -39,9 +39,9 @@ public function contacts(): ContactsService
     return new ContactsService($this->apiClient);
 }
 
-public function dnsRecords(): DnsRecordsService
+public function dnsRecords(): DNSRecordsService
 {
-    return new DnsRecordsService($this->apiClient);
+    return new DNSRecordsService($this->apiClient);
 }
 
 public function domains(): DomainsService
@@ -49,9 +49,9 @@ public function domains(): DomainsService
     return new DomainsService($this->apiClient);
 }
 
-public function sellerhub(): SellerhubService
+public function sellerhub(): SellerHubService
 {
-    return new SellerhubService($this->apiClient);
+    return new SellerHubService($this->apiClient);
 }
 
 }

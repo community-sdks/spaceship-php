@@ -25,7 +25,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetdomainlistRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetDomainListRequest::sample();
         $response = $service->getDomainList($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -41,7 +41,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\CheckdomainsavailabilityRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\CheckDomainsAvailabilityRequest::sample();
         $response = $service->checkDomainsAvailability($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -57,7 +57,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetdomaininfoRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetDomainInfoRequest::sample();
         $response = $service->getDomainInfo($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -73,7 +73,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DomaindeleteRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainDeleteRequest::sample();
         $response = $service->domainDelete($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -89,7 +89,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DomaincreateRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainCreateRequest::sample();
         $response = $service->domainCreate($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -105,7 +105,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateautorenewalRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateAutorenewalRequest::sample();
         $response = $service->updateAutorenewal($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -121,7 +121,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\ChecksingledomainavailabilityRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\CheckSingleDomainAvailabilityRequest::sample();
         $response = $service->checkSingleDomainAvailability($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -137,7 +137,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\SetdomaincontactsRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\SetDomainContactsRequest::sample();
         $response = $service->setDomainContacts($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -153,7 +153,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\SetdomainnameserversRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\SetDomainNameserversRequest::sample();
         $response = $service->setDomainNameservers($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -169,7 +169,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetdomainpersonalnameserversRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetDomainPersonalNameserversRequest::sample();
         $response = $service->getDomainPersonalNameservers($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -185,7 +185,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetdomainpersonalnameserverhostinfoRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetDomainPersonalNameserverHostInfoRequest::sample();
         $response = $service->getDomainPersonalNameserverHostInfo($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -201,7 +201,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdatedomainpersonalnameserverhostinfoRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateDomainPersonalNameserverHostInfoRequest::sample();
         $response = $service->updateDomainPersonalNameserverHostInfo($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -217,7 +217,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DeletedomainpersonalnameserverhostinfoRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DeleteDomainPersonalNameserverHostInfoRequest::sample();
         $response = $service->deleteDomainPersonalNameserverHostInfo($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -233,7 +233,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdatedomainemailprotectionpreferenceRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateDomainEmailProtectionPreferenceRequest::sample();
         $response = $service->updateDomainEmailProtectionPreference($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -249,7 +249,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdatedomainprivacypreferenceRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateDomainPrivacyPreferenceRequest::sample();
         $response = $service->updateDomainPrivacyPreference($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -265,7 +265,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainrenewRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainRenewRequest::sample();
         $response = $service->domainRenew($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -281,7 +281,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainrestoreRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\DomainRestoreRequest::sample();
         $response = $service->domainRestore($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -297,7 +297,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\TransferrequestRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\TransferRequestRequest::sample();
         $response = $service->transferRequest($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -313,7 +313,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GettransferinfoRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetTransferInfoRequest::sample();
         $response = $service->getTransferInfo($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -329,7 +329,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\GetauthcodeRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\GetAuthCodeRequest::sample();
         $response = $service->getAuthCode($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
@@ -345,7 +345,7 @@ final class DomainsServiceTest extends TestCase
         $httpClient = new Client(['handler' => $stack]);
         $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
         $service = new DomainsService($apiClient);
-        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdatetransferlockRequest::sample();
+        $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateTransferLockRequest::sample();
         $response = $service->updateTransferLock($request);
         self::assertNotNull($response);
         self::assertCount(1, $history);
