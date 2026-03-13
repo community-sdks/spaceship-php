@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Tests\Service;
 
-use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
+use CommunitySDKs\Spaceship\Config\Config;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 use CommunitySDKs\Spaceship\Service\SellerHubService;
 use GuzzleHttp\Client;
@@ -23,7 +23,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\CreateCheckoutLinkRequest::sample();
         $response = $service->createCheckoutLink($request);
@@ -39,7 +39,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainListRequest::sample();
         $response = $service->getSellerHubDomainList($request);
@@ -55,7 +55,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\CreateSellerHubDomainRequest::sample();
         $response = $service->createSellerHubDomain($request);
@@ -71,7 +71,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainRequest::sample();
         $response = $service->getSellerHubDomain($request);
@@ -87,7 +87,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\UpdateSellerHubDomainRequest::sample();
         $response = $service->updateSellerHubDomain($request);
@@ -103,7 +103,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\DeleteSellerHubDomainRequest::sample();
         $response = $service->deleteSellerHubDomain($request);
@@ -119,7 +119,7 @@ final class SellerhubServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new SellerHubService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\GetVerificationRecordsRequest::sample();
         $response = $service->getVerificationRecords($request);

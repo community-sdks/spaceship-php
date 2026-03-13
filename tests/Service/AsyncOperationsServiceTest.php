@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Tests\Service;
 
-use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
+use CommunitySDKs\Spaceship\Config\Config;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 use CommunitySDKs\Spaceship\Service\AsyncOperationsService;
 use GuzzleHttp\Client;
@@ -23,7 +23,7 @@ final class AsyncOperationsServiceTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push(Middleware::history($history));
         $httpClient = new Client(['handler' => $stack]);
-        $apiClient = new ApiClient($httpClient, SpaceshipConfig::sandbox('key', 'secret'));
+        $apiClient = new ApiClient($httpClient, Config::sandbox('key', 'secret'));
         $service = new AsyncOperationsService($apiClient);
         $request = \CommunitySDKs\Spaceship\DTO\Request\GetAsyncOperationDetailsRequest::sample();
         $response = $service->getAsyncOperationDetails($request);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Http;
 
-use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
+use CommunitySDKs\Spaceship\Config\Config;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +13,7 @@ final class ApiClient
 {
     public function __construct(
         private readonly ClientInterface $httpClient,
-        private readonly SpaceshipConfig $config,
+        private readonly Config $config,
     ) {
     }
 
@@ -41,6 +41,6 @@ final class ApiClient
             $options['body'] = Utils::streamFor((string) json_encode($jsonBody, JSON_UNESCAPED_SLASHES));
         }
 
-        return $this->httpClient->request($method, $this->config->environment->value . $path, $options);
+        return $this->httpClient->request($method, $this->config->baseUrl() . $path, $options);
     }
 }

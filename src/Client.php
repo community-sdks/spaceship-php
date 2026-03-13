@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship;
 
-use CommunitySDKs\Spaceship\Config\SpaceshipConfig;
+use CommunitySDKs\Spaceship\Config\Config;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
@@ -19,7 +19,7 @@ final class Client
 {
     private readonly ApiClient $apiClient;
 
-    public function __construct(SpaceshipConfig $config, ?ClientInterface $httpClient = null)
+    public function __construct(Config $config, ?ClientInterface $httpClient = null)
     {
         $this->apiClient = new ApiClient($httpClient ?? new GuzzleClient(), $config);
     }

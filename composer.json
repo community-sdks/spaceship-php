@@ -1,5 +1,5 @@
 {
-  "name": "community-sdks/spaceship",
+  "name": "community-sdks/spaceship-php",
   "description": "Typed PHP SDK for the Spaceship API",
   "type": "library",
   "license": "MIT",
