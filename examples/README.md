@@ -10,8 +10,14 @@ These examples are configured for sandbox testing by default.
 
 ## Run a single service example
 
+**PowerShell:**
+```powershell
+$env:SPACESHIP_API_KEY='your_key'; $env:SPACESHIP_API_SECRET='your_secret'; php examples/DomainsService.php
+```
+
+**Bash (Mac / Linux / Git Bash):**
 ```bash
-php examples/DomainsService.php
+SPACESHIP_API_KEY=your_key SPACESHIP_API_SECRET=your_secret php examples/DomainsService.php
 ```
 
 ## Available example scripts
