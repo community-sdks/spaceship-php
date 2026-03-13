@@ -1,0 +1,26 @@
+{
+  "name": "community-sdks/spaceship",
+  "description": "Typed PHP SDK for the Spaceship API",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "CommunitySDKs\\Spaceship\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CommunitySDKs\\Spaceship\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit --colors=always"
+  }
+}
