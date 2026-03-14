@@ -4,6 +4,69 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Service;
 
+use CommunitySDKs\Spaceship\DTO\Domains\Request\CheckDomainsAvailabilityRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\CheckSingleDomainAvailabilityRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\DeleteDomainPersonalNameserverHostInfoRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\DomainCreateRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\DomainDeleteRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\DomainRenewRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\DomainRestoreRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetAuthCodeRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetDomainInfoRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetDomainListRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetDomainPersonalNameserverHostInfoRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetDomainPersonalNameserversRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\GetTransferInfoRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\SetDomainContactsRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\SetDomainNameserversRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\TransferRequestRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\UpdateAutorenewalRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\UpdateDomainEmailProtectionPreferenceRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\UpdateDomainPersonalNameserverHostInfoRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\UpdateDomainPrivacyPreferenceRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Request\UpdateTransferLockRequest;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\CheckDomainsAvailabilityResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\CheckSingleDomainAvailabilityResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\DeleteDomainPersonalNameserverHostInfoResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\DomainCreateResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\DomainDeleteResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\DomainRenewResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\DomainRestoreResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetAuthCodeResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetDomainInfoResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetDomainListResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetDomainPersonalNameserverHostInfoResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetDomainPersonalNameserversResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\GetTransferInfoResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\SetDomainContactsResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\SetDomainNameserversResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\TransferRequestResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\UpdateAutorenewalResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\UpdateDomainEmailProtectionPreferenceResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\UpdateDomainPersonalNameserverHostInfoResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\UpdateDomainPrivacyPreferenceResponse;
+use CommunitySDKs\Spaceship\DTO\Domains\Response\UpdateTransferLockResponse;
+use CommunitySDKs\Spaceship\Exception\Domains\CheckDomainsAvailabilityException;
+use CommunitySDKs\Spaceship\Exception\Domains\CheckSingleDomainAvailabilityException;
+use CommunitySDKs\Spaceship\Exception\Domains\DeleteDomainPersonalNameserverHostInfoException;
+use CommunitySDKs\Spaceship\Exception\Domains\DomainCreateException;
+use CommunitySDKs\Spaceship\Exception\Domains\DomainDeleteException;
+use CommunitySDKs\Spaceship\Exception\Domains\DomainRenewException;
+use CommunitySDKs\Spaceship\Exception\Domains\DomainRestoreException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetAuthCodeException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetDomainInfoException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetDomainListException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetDomainPersonalNameserverHostInfoException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetDomainPersonalNameserversException;
+use CommunitySDKs\Spaceship\Exception\Domains\GetTransferInfoException;
+use CommunitySDKs\Spaceship\Exception\Domains\SetDomainContactsException;
+use CommunitySDKs\Spaceship\Exception\Domains\SetDomainNameserversException;
+use CommunitySDKs\Spaceship\Exception\Domains\TransferRequestException;
+use CommunitySDKs\Spaceship\Exception\Domains\UpdateAutorenewalException;
+use CommunitySDKs\Spaceship\Exception\Domains\UpdateDomainEmailProtectionPreferenceException;
+use CommunitySDKs\Spaceship\Exception\Domains\UpdateDomainPersonalNameserverHostInfoException;
+use CommunitySDKs\Spaceship\Exception\Domains\UpdateDomainPrivacyPreferenceException;
+use CommunitySDKs\Spaceship\Exception\Domains\UpdateTransferLockException;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 
 final class DomainsService
@@ -15,484 +78,525 @@ final class DomainsService
     /**
      * Get domain list.
      */
-    public function getDomainList(\CommunitySDKs\Spaceship\DTO\Request\GetDomainListRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetDomainListResponse
+    public function getDomainList(GetDomainListRequest $request): GetDomainListResponse
     {
+        $path = '/v1/domains';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetDomainListException(
+            throw new GetDomainListException(
                 'API request failed for getDomainList',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetDomainListResponse::fromPsrResponse($response);
+        return GetDomainListResponse::fromPsrResponse($response);
     }
 
     /**
      * Check domains availability.
      */
-    public function checkDomainsAvailability(\CommunitySDKs\Spaceship\DTO\Request\CheckDomainsAvailabilityRequest $request): \CommunitySDKs\Spaceship\DTO\Response\CheckDomainsAvailabilityResponse
+    public function checkDomainsAvailability(CheckDomainsAvailabilityRequest $request): CheckDomainsAvailabilityResponse
     {
+        $path = '/v1/domains/available';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\CheckDomainsAvailabilityException(
+            throw new CheckDomainsAvailabilityException(
                 'API request failed for checkDomainsAvailability',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\CheckDomainsAvailabilityResponse::fromPsrResponse($response);
+        return CheckDomainsAvailabilityResponse::fromPsrResponse($response);
     }
 
     /**
      * Get domain info.
      */
-    public function getDomainInfo(\CommunitySDKs\Spaceship\DTO\Request\GetDomainInfoRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetDomainInfoResponse
+    public function getDomainInfo(GetDomainInfoRequest $request): GetDomainInfoResponse
     {
+        $path = '/v1/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetDomainInfoException(
+            throw new GetDomainInfoException(
                 'API request failed for getDomainInfo',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetDomainInfoResponse::fromPsrResponse($response);
+        return GetDomainInfoResponse::fromPsrResponse($response);
     }
 
     /**
      * Delete the domain.
      */
-    public function domainDelete(\CommunitySDKs\Spaceship\DTO\Request\DomainDeleteRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DomainDeleteResponse
+    public function domainDelete(DomainDeleteRequest $request): DomainDeleteResponse
     {
+        $path = '/v1/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'DELETE',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DomainDeleteException(
+            throw new DomainDeleteException(
                 'API request failed for domainDelete',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DomainDeleteResponse::fromPsrResponse($response);
+        return DomainDeleteResponse::fromPsrResponse($response);
     }
 
     /**
      * Register the domain.
      */
-    public function domainCreate(\CommunitySDKs\Spaceship\DTO\Request\DomainCreateRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DomainCreateResponse
+    public function domainCreate(DomainCreateRequest $request): DomainCreateResponse
     {
+        $path = '/v1/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DomainCreateException(
+            throw new DomainCreateException(
                 'API request failed for domainCreate',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DomainCreateResponse::fromPsrResponse($response);
+        return DomainCreateResponse::fromPsrResponse($response);
     }
 
     /**
      * Update the domain autorenewal state.
      */
-    public function updateAutorenewal(\CommunitySDKs\Spaceship\DTO\Request\UpdateAutorenewalRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateAutorenewalResponse
+    public function updateAutorenewal(UpdateAutorenewalRequest $request): UpdateAutorenewalResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/autorenew';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateAutorenewalException(
+            throw new UpdateAutorenewalException(
                 'API request failed for updateAutorenewal',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateAutorenewalResponse::fromPsrResponse($response);
+        return UpdateAutorenewalResponse::fromPsrResponse($response);
     }
 
     /**
      * Check single domain availability.
      */
-    public function checkSingleDomainAvailability(\CommunitySDKs\Spaceship\DTO\Request\CheckSingleDomainAvailabilityRequest $request): \CommunitySDKs\Spaceship\DTO\Response\CheckSingleDomainAvailabilityResponse
+    public function checkSingleDomainAvailability(CheckSingleDomainAvailabilityRequest $request): CheckSingleDomainAvailabilityResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/available';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\CheckSingleDomainAvailabilityException(
+            throw new CheckSingleDomainAvailabilityException(
                 'API request failed for checkSingleDomainAvailability',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\CheckSingleDomainAvailabilityResponse::fromPsrResponse($response);
+        return CheckSingleDomainAvailabilityResponse::fromPsrResponse($response);
     }
 
     /**
      * Update domain contacts.
      */
-    public function setDomainContacts(\CommunitySDKs\Spaceship\DTO\Request\SetDomainContactsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\SetDomainContactsResponse
+    public function setDomainContacts(SetDomainContactsRequest $request): SetDomainContactsResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/contacts';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\SetDomainContactsException(
+            throw new SetDomainContactsException(
                 'API request failed for setDomainContacts',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\SetDomainContactsResponse::fromPsrResponse($response);
+        return SetDomainContactsResponse::fromPsrResponse($response);
     }
 
     /**
      * Update domain nameservers.
      */
-    public function setDomainNameservers(\CommunitySDKs\Spaceship\DTO\Request\SetDomainNameserversRequest $request): \CommunitySDKs\Spaceship\DTO\Response\SetDomainNameserversResponse
+    public function setDomainNameservers(SetDomainNameserversRequest $request): SetDomainNameserversResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/nameservers';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\SetDomainNameserversException(
+            throw new SetDomainNameserversException(
                 'API request failed for setDomainNameservers',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\SetDomainNameserversResponse::fromPsrResponse($response);
+        return SetDomainNameserversResponse::fromPsrResponse($response);
     }
 
     /**
      * Get personal nameservers on a domain.
      */
-    public function getDomainPersonalNameservers(\CommunitySDKs\Spaceship\DTO\Request\GetDomainPersonalNameserversRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetDomainPersonalNameserversResponse
+    public function getDomainPersonalNameservers(GetDomainPersonalNameserversRequest $request): GetDomainPersonalNameserversResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/personal-nameservers';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetDomainPersonalNameserversException(
+            throw new GetDomainPersonalNameserversException(
                 'API request failed for getDomainPersonalNameservers',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetDomainPersonalNameserversResponse::fromPsrResponse($response);
+        return GetDomainPersonalNameserversResponse::fromPsrResponse($response);
     }
 
     /**
      * Get personal nameservers host configuration.
      */
-    public function getDomainPersonalNameserverHostInfo(\CommunitySDKs\Spaceship\DTO\Request\GetDomainPersonalNameserverHostInfoRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetDomainPersonalNameserverHostInfoResponse
+    public function getDomainPersonalNameserverHostInfo(GetDomainPersonalNameserverHostInfoRequest $request): GetDomainPersonalNameserverHostInfoResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/personal-nameservers/' . $request->currentHost;
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetDomainPersonalNameserverHostInfoException(
+            throw new GetDomainPersonalNameserverHostInfoException(
                 'API request failed for getDomainPersonalNameserverHostInfo',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
+        return GetDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
     }
 
     /**
      * Update personal nameservers host configuration.
      */
-    public function updateDomainPersonalNameserverHostInfo(\CommunitySDKs\Spaceship\DTO\Request\UpdateDomainPersonalNameserverHostInfoRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainPersonalNameserverHostInfoResponse
+    public function updateDomainPersonalNameserverHostInfo(UpdateDomainPersonalNameserverHostInfoRequest $request): UpdateDomainPersonalNameserverHostInfoResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/personal-nameservers/' . $request->currentHost;
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateDomainPersonalNameserverHostInfoException(
+            throw new UpdateDomainPersonalNameserverHostInfoException(
                 'API request failed for updateDomainPersonalNameserverHostInfo',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
+        return UpdateDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
     }
 
     /**
      * Delete personal nameservers host configuration.
      */
-    public function deleteDomainPersonalNameserverHostInfo(\CommunitySDKs\Spaceship\DTO\Request\DeleteDomainPersonalNameserverHostInfoRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DeleteDomainPersonalNameserverHostInfoResponse
+    public function deleteDomainPersonalNameserverHostInfo(DeleteDomainPersonalNameserverHostInfoRequest $request): DeleteDomainPersonalNameserverHostInfoResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/personal-nameservers/' . $request->currentHost;
+
         $response = $this->apiClient->request(
             'DELETE',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DeleteDomainPersonalNameserverHostInfoException(
+            throw new DeleteDomainPersonalNameserverHostInfoException(
                 'API request failed for deleteDomainPersonalNameserverHostInfo',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DeleteDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
+        return DeleteDomainPersonalNameserverHostInfoResponse::fromPsrResponse($response);
     }
 
     /**
      * Update domain email protection preference.
      */
-    public function updateDomainEmailProtectionPreference(\CommunitySDKs\Spaceship\DTO\Request\UpdateDomainEmailProtectionPreferenceRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainEmailProtectionPreferenceResponse
+    public function updateDomainEmailProtectionPreference(UpdateDomainEmailProtectionPreferenceRequest $request): UpdateDomainEmailProtectionPreferenceResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/privacy/email-protection-preference';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateDomainEmailProtectionPreferenceException(
+            throw new UpdateDomainEmailProtectionPreferenceException(
                 'API request failed for updateDomainEmailProtectionPreference',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainEmailProtectionPreferenceResponse::fromPsrResponse($response);
+        return UpdateDomainEmailProtectionPreferenceResponse::fromPsrResponse($response);
     }
 
     /**
      * Update domain privacy preference.
      */
-    public function updateDomainPrivacyPreference(\CommunitySDKs\Spaceship\DTO\Request\UpdateDomainPrivacyPreferenceRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainPrivacyPreferenceResponse
+    public function updateDomainPrivacyPreference(UpdateDomainPrivacyPreferenceRequest $request): UpdateDomainPrivacyPreferenceResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/privacy/preference';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateDomainPrivacyPreferenceException(
+            throw new UpdateDomainPrivacyPreferenceException(
                 'API request failed for updateDomainPrivacyPreference',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateDomainPrivacyPreferenceResponse::fromPsrResponse($response);
+        return UpdateDomainPrivacyPreferenceResponse::fromPsrResponse($response);
     }
 
     /**
      * Requests domain renewal.
      */
-    public function domainRenew(\CommunitySDKs\Spaceship\DTO\Request\DomainRenewRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DomainRenewResponse
+    public function domainRenew(DomainRenewRequest $request): DomainRenewResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/renew';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DomainRenewException(
+            throw new DomainRenewException(
                 'API request failed for domainRenew',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DomainRenewResponse::fromPsrResponse($response);
+        return DomainRenewResponse::fromPsrResponse($response);
     }
 
     /**
      * Requests domain restoration.
      */
-    public function domainRestore(\CommunitySDKs\Spaceship\DTO\Request\DomainRestoreRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DomainRestoreResponse
+    public function domainRestore(DomainRestoreRequest $request): DomainRestoreResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/restore';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DomainRestoreException(
+            throw new DomainRestoreException(
                 'API request failed for domainRestore',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DomainRestoreResponse::fromPsrResponse($response);
+        return DomainRestoreResponse::fromPsrResponse($response);
     }
 
     /**
      * Requests domain transfer.
      */
-    public function transferRequest(\CommunitySDKs\Spaceship\DTO\Request\TransferRequestRequest $request): \CommunitySDKs\Spaceship\DTO\Response\TransferRequestResponse
+    public function transferRequest(TransferRequestRequest $request): TransferRequestResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/transfer';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\TransferRequestException(
+            throw new TransferRequestException(
                 'API request failed for transferRequest',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\TransferRequestResponse::fromPsrResponse($response);
+        return TransferRequestResponse::fromPsrResponse($response);
     }
 
     /**
      * Get the details of the domain transfer.
      */
-    public function getTransferInfo(\CommunitySDKs\Spaceship\DTO\Request\GetTransferInfoRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetTransferInfoResponse
+    public function getTransferInfo(GetTransferInfoRequest $request): GetTransferInfoResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/transfer';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetTransferInfoException(
+            throw new GetTransferInfoException(
                 'API request failed for getTransferInfo',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetTransferInfoResponse::fromPsrResponse($response);
+        return GetTransferInfoResponse::fromPsrResponse($response);
     }
 
     /**
      * Get domain auth code.
      */
-    public function getAuthCode(\CommunitySDKs\Spaceship\DTO\Request\GetAuthCodeRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetAuthCodeResponse
+    public function getAuthCode(GetAuthCodeRequest $request): GetAuthCodeResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/transfer/auth-code';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetAuthCodeException(
+            throw new GetAuthCodeException(
                 'API request failed for getAuthCode',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetAuthCodeResponse::fromPsrResponse($response);
+        return GetAuthCodeResponse::fromPsrResponse($response);
     }
 
     /**
      * Update domain transfer lock.
      */
-    public function updateTransferLock(\CommunitySDKs\Spaceship\DTO\Request\UpdateTransferLockRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateTransferLockResponse
+    public function updateTransferLock(UpdateTransferLockRequest $request): UpdateTransferLockResponse
     {
+        $path = '/v1/domains/' . $request->domain . '/transfer/lock';
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateTransferLockException(
+            throw new UpdateTransferLockException(
                 'API request failed for updateTransferLock',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateTransferLockResponse::fromPsrResponse($response);
+        return UpdateTransferLockResponse::fromPsrResponse($response);
     }
-
 }

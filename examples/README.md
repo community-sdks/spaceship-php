@@ -1,6 +1,8 @@
 # Examples
 
 These examples are configured for sandbox testing by default.
+They use direct DTO construction with placeholder values instead of generated sample helpers.
+Replace the placeholder IDs, domains, contact handles, and payload values before running them against a real account.
 
 ## Environment variables
 
@@ -19,6 +21,12 @@ $env:SPACESHIP_API_KEY='your_key'; $env:SPACESHIP_API_SECRET='your_secret'; php 
 ```bash
 SPACESHIP_API_KEY=your_key SPACESHIP_API_SECRET=your_secret php examples/DomainsService.php
 ```
+
+## Notes
+
+- The scripts intentionally show explicit request DTO construction.
+- Mutating examples such as create, update, save, and delete operations use obviously fake placeholder values.
+- Review each file before running it against production credentials.
 
 ## Available example scripts
 

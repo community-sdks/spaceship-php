@@ -4,75 +4,56 @@ declare(strict_types=1);
 
 require __DIR__ . '/bootstrap.php';
 
-$service = $client->sellerHub();
+use CommunitySDKs\Spaceship\DTO\Common\Schema\Currency;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateCheckoutLinkRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainListRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetVerificationRecordsRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Enum\CheckoutLinkType;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\CreateCheckoutLinkRequest as CreateCheckoutLinkBody;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\Price;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerhubDomainName;
+
+$service = $client->sellerhub();
 
 echo "Running SellerHubService::createCheckoutLink...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\CreateCheckoutLinkRequest::sample();
+$request = new CreateCheckoutLinkRequest(
+    new CreateCheckoutLinkBody(
+        CheckoutLinkType::BUY_NOW,
+        new Price('12.99', Currency::fromValue('USD')),
+        SellerhubDomainName::fromValue('example.com')
+    )
+);
+
 try {
     $response = $service->createCheckoutLink($request);
     echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+} catch (Throwable $exception) {
+    echo 'Error: ' . $exception->getMessage() . PHP_EOL;
 }
+
 echo str_repeat('-', 60) . PHP_EOL;
 
 echo "Running SellerHubService::getSellerHubDomainList...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainListRequest::sample();
+$request = new GetSellerHubDomainListRequest(20, 0);
+
 try {
     $response = $service->getSellerHubDomainList($request);
     echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+} catch (Throwable $exception) {
+    echo 'Error: ' . $exception->getMessage() . PHP_EOL;
 }
-echo str_repeat('-', 60) . PHP_EOL;
 
-echo "Running SellerHubService::createSellerHubDomain...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\CreateSellerHubDomainRequest::sample();
-try {
-    $response = $service->createSellerHubDomain($request);
-    echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
-}
-echo str_repeat('-', 60) . PHP_EOL;
-
-echo "Running SellerHubService::getSellerHubDomain...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainRequest::sample();
-try {
-    $response = $service->getSellerHubDomain($request);
-    echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
-}
-echo str_repeat('-', 60) . PHP_EOL;
-
-echo "Running SellerHubService::updateSellerHubDomain...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\UpdateSellerHubDomainRequest::sample();
-try {
-    $response = $service->updateSellerHubDomain($request);
-    echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
-}
-echo str_repeat('-', 60) . PHP_EOL;
-
-echo "Running SellerHubService::deleteSellerHubDomain...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\DeleteSellerHubDomainRequest::sample();
-try {
-    $response = $service->deleteSellerHubDomain($request);
-    echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
-}
 echo str_repeat('-', 60) . PHP_EOL;
 
 echo "Running SellerHubService::getVerificationRecords...\n";
-$request = \CommunitySDKs\Spaceship\DTO\Request\GetVerificationRecordsRequest::sample();
+$request = new GetVerificationRecordsRequest();
+
 try {
     $response = $service->getVerificationRecords($request);
     echo 'Status: ' . $response->statusCode . PHP_EOL;
-} catch (Throwable $e) {
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+} catch (Throwable $exception) {
+    echo 'Error: ' . $exception->getMessage() . PHP_EOL;
 }
+
 echo str_repeat('-', 60) . PHP_EOL;
 

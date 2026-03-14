@@ -1,53 +1,30 @@
 # DNSRecordsService
 
-## saveRecords
+Manual request DTO construction is required.
 
-- Purpose: Save resource records
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\SaveRecordsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\SaveRecordsResponse
-- Method/Path: PUT /v1/dns/records/{domain}
+## Methods
 
-Example input data:
+- `saveRecords`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Request\SaveRecordsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Response\SaveRecordsResponse`
+	Method/Path: `PUT /v1/dns/records/{domain}`
+
+- `deleteRecords`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Request\DeleteRecordsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Response\DeleteRecordsResponse`
+	Method/Path: `DELETE /v1/dns/records/{domain}`
+
+- `getResourceRecordsList`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Request\GetResourceRecordsListRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\DNSRecords\Response\GetResourceRecordsListResponse`
+	Method/Path: `GET /v1/dns/records/{domain}`
+
+## Example
+
 ```php
-$request = SaveRecordsRequest::sample();
-```
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Request\GetResourceRecordsListRequest;
 
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## deleteRecords
-
-- Purpose: Delete resource records
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\DeleteRecordsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\DeleteRecordsResponse
-- Method/Path: DELETE /v1/dns/records/{domain}
-
-Example input data:
-```php
-$request = DeleteRecordsRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## getResourceRecordsList
-
-- Purpose: Get domain resource records list
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\GetResourceRecordsListRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\GetResourceRecordsListResponse
-- Method/Path: GET /v1/dns/records/{domain}
-
-Example input data:
-```php
-$request = GetResourceRecordsListRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
+$request = new GetResourceRecordsListRequest('example.com', 50, 0, ['name asc']);
+$response = $client->dnsRecords()->getResourceRecordsList($request);
 ```
 

@@ -1,19 +1,20 @@
 # AsyncOperationsService
 
-## getAsyncOperationDetails
+Manual request DTO construction is required. The SDK no longer provides generated sample helpers.
 
-- Purpose: Obtain async operation details
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\GetAsyncOperationDetailsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\GetAsyncOperationDetailsResponse
-- Method/Path: GET /v1/async-operations/{operationId}
+## Method
 
-Example input data:
+- `getAsyncOperationDetails`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Request\GetAsyncOperationDetailsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Response\GetAsyncOperationDetailsResponse`
+	Method/Path: `GET /v1/async-operations/{operationId}`
+
+## Example
+
 ```php
-$request = GetAsyncOperationDetailsRequest::sample();
-```
+use CommunitySDKs\Spaceship\DTO\AsyncOperations\Request\GetAsyncOperationDetailsRequest;
 
-Example output JSON:
-```json
-{"ok": true}
+$request = new GetAsyncOperationDetailsRequest('operation_123');
+$response = $client->asyncOperations()->getAsyncOperationDetails($request);
 ```
 

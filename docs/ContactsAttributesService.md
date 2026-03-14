@@ -1,36 +1,29 @@
 # ContactsAttributesService
 
-## saveContactAttributes
+Manual request DTO construction is required.
 
-- Purpose: Save contact attributes
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\SaveContactAttributesRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\SaveContactAttributesResponse
-- Method/Path: PUT /v1/contacts/attributes
+## Methods
 
-Example input data:
+- `saveContactAttributes`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\ContactsAttributes\Request\SaveContactAttributesRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\ContactsAttributes\Response\SaveContactAttributesResponse`
+	Method/Path: `PUT /v1/contacts/attributes`
+
+- `readAttributeDetails`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\ContactsAttributes\Request\ReadAttributeDetailsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\ContactsAttributes\Response\ReadAttributeDetailsResponse`
+	Method/Path: `GET /v1/contacts/attributes/{contact}`
+
+## Example
+
 ```php
-$request = SaveContactAttributesRequest::sample();
-```
+use CommunitySDKs\Spaceship\DTO\ContactsAttributes\Request\ReadAttributeDetailsRequest;
+use CommunitySDKs\Spaceship\DTO\ContactsAttributes\Request\SaveContactAttributesRequest;
+use CommunitySDKs\Spaceship\DTO\ContactsAttributes\Schema\UsAttributeDetails;
 
-Example output JSON:
-```json
-{"ok": true}
-```
+$attributes = new UsAttributeDetails('us', 'P3', 'C11');
 
-## readAttributeDetails
-
-- Purpose: Read attribute details
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\ReadAttributeDetailsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\ReadAttributeDetailsResponse
-- Method/Path: GET /v1/contacts/attributes/{contact}
-
-Example input data:
-```php
-$request = ReadAttributeDetailsRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
+$client->contactsAttributes()->saveContactAttributes(new SaveContactAttributesRequest($attributes));
+$client->contactsAttributes()->readAttributeDetails(new ReadAttributeDetailsRequest('contact-handle'));
 ```
 

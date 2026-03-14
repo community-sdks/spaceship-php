@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Service;
 
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Request\DeleteRecordsRequest;
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Request\GetResourceRecordsListRequest;
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Request\SaveRecordsRequest;
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Response\DeleteRecordsResponse;
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Response\GetResourceRecordsListResponse;
+use CommunitySDKs\Spaceship\DTO\DNSRecords\Response\SaveRecordsResponse;
+use CommunitySDKs\Spaceship\Exception\DNSRecords\DeleteRecordsException;
+use CommunitySDKs\Spaceship\Exception\DNSRecords\GetResourceRecordsListException;
+use CommunitySDKs\Spaceship\Exception\DNSRecords\SaveRecordsException;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 
 final class DNSRecordsService
@@ -15,70 +24,78 @@ final class DNSRecordsService
     /**
      * Save resource records.
      */
-    public function saveRecords(\CommunitySDKs\Spaceship\DTO\Request\SaveRecordsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\SaveRecordsResponse
+    public function saveRecords(SaveRecordsRequest $request): SaveRecordsResponse
     {
+        $path = '/v1/dns/records/' . $request->domain;
+
         $response = $this->apiClient->request(
             'PUT',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\SaveRecordsException(
+            throw new SaveRecordsException(
                 'API request failed for saveRecords',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\SaveRecordsResponse::fromPsrResponse($response);
+
+        return SaveRecordsResponse::fromPsrResponse($response);
     }
 
     /**
      * Delete resource records.
      */
-    public function deleteRecords(\CommunitySDKs\Spaceship\DTO\Request\DeleteRecordsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DeleteRecordsResponse
+    public function deleteRecords(DeleteRecordsRequest $request): DeleteRecordsResponse
     {
+        $path = '/v1/dns/records/' . $request->domain;
+
         $response = $this->apiClient->request(
             'DELETE',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DeleteRecordsException(
+            throw new DeleteRecordsException(
                 'API request failed for deleteRecords',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DeleteRecordsResponse::fromPsrResponse($response);
+
+        return DeleteRecordsResponse::fromPsrResponse($response);
     }
 
     /**
      * Get domain resource records list.
      */
-    public function getResourceRecordsList(\CommunitySDKs\Spaceship\DTO\Request\GetResourceRecordsListRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetResourceRecordsListResponse
+    public function getResourceRecordsList(GetResourceRecordsListRequest $request): GetResourceRecordsListResponse
     {
+        $path = '/v1/dns/records/' . $request->domain;
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetResourceRecordsListException(
+            throw new GetResourceRecordsListException(
                 'API request failed for getResourceRecordsList',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetResourceRecordsListResponse::fromPsrResponse($response);
-    }
 
+        return GetResourceRecordsListResponse::fromPsrResponse($response);
+    }
 }

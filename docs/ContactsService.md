@@ -1,36 +1,47 @@
 # ContactsService
 
-## saveDetails
+Manual request DTO construction is required.
 
-- Purpose: Save contact details
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\SaveDetailsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\SaveDetailsResponse
-- Method/Path: PUT /v1/contacts
+## Methods
 
-Example input data:
+- `saveDetails`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse`
+	Method/Path: `PUT /v1/contacts`
+
+- `readDetails`
+	Request DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest`
+	Response DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse`
+	Method/Path: `GET /v1/contacts/{contact}`
+
+## Example
+
 ```php
-$request = SaveDetailsRequest::sample();
-```
+use CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest;
+use CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest;
+use CommunitySDKs\Spaceship\DTO\Contacts\Schema\ContactDetails;
+use CommunitySDKs\Spaceship\DTO\Contacts\Schema\CountryCode;
+use CommunitySDKs\Spaceship\DTO\Contacts\Schema\Phone;
 
-Example output JSON:
-```json
-{"ok": true}
-```
+$details = new ContactDetails(
+		'Jane',
+		'Doe',
+		'Example LLC',
+		'jane@example.com',
+		'123 Example Street',
+		null,
+		'Phoenix',
+		CountryCode::fromValue('US'),
+		'AZ',
+		'85001',
+		Phone::fromValue('+14805550100'),
+		null,
+		null,
+		null,
+		null,
+);
 
-## readDetails
-
-- Purpose: Read contact details
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\ReadDetailsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\ReadDetailsResponse
-- Method/Path: GET /v1/contacts/{contact}
-
-Example input data:
-```php
-$request = ReadDetailsRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
+$client->contacts()->saveDetails(new SaveDetailsRequest($details));
+$client->contacts()->readDetails(new ReadDetailsRequest('contact-handle')); 
 ```
 

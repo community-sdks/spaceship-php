@@ -4,6 +4,27 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Service;
 
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateCheckoutLinkRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateSellerHubDomainRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\DeleteSellerHubDomainRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainListRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetVerificationRecordsRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\UpdateSellerHubDomainRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\CreateCheckoutLinkResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\CreateSellerHubDomainResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\DeleteSellerHubDomainResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetSellerHubDomainListResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetSellerHubDomainResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetVerificationRecordsResponse;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Response\UpdateSellerHubDomainResponse;
+use CommunitySDKs\Spaceship\Exception\SellerHub\CreateCheckoutLinkException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\CreateSellerHubDomainException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\DeleteSellerHubDomainException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\GetSellerHubDomainException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\GetSellerHubDomainListException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\GetVerificationRecordsException;
+use CommunitySDKs\Spaceship\Exception\SellerHub\UpdateSellerHubDomainException;
 use CommunitySDKs\Spaceship\Http\ApiClient;
 
 final class SellerHubService
@@ -15,162 +36,175 @@ final class SellerHubService
     /**
      * Create a checkout link.
      */
-    public function createCheckoutLink(\CommunitySDKs\Spaceship\DTO\Request\CreateCheckoutLinkRequest $request): \CommunitySDKs\Spaceship\DTO\Response\CreateCheckoutLinkResponse
+    public function createCheckoutLink(CreateCheckoutLinkRequest $request): CreateCheckoutLinkResponse
     {
+        $path = '/v1/sellerhub/checkout-links';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\CreateCheckoutLinkException(
+            throw new CreateCheckoutLinkException(
                 'API request failed for createCheckoutLink',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\CreateCheckoutLinkResponse::fromPsrResponse($response);
+        return CreateCheckoutLinkResponse::fromPsrResponse($response);
     }
 
     /**
      * Get SellerHub domains list.
      */
-    public function getSellerHubDomainList(\CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainListRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainListResponse
+    public function getSellerHubDomainList(GetSellerHubDomainListRequest $request): GetSellerHubDomainListResponse
     {
+        $path = '/v1/sellerhub/domains';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetSellerHubDomainListException(
+            throw new GetSellerHubDomainListException(
                 'API request failed for getSellerHubDomainList',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainListResponse::fromPsrResponse($response);
+        return GetSellerHubDomainListResponse::fromPsrResponse($response);
     }
 
     /**
      * Create a SellerHub domain.
      */
-    public function createSellerHubDomain(\CommunitySDKs\Spaceship\DTO\Request\CreateSellerHubDomainRequest $request): \CommunitySDKs\Spaceship\DTO\Response\CreateSellerHubDomainResponse
+    public function createSellerHubDomain(CreateSellerHubDomainRequest $request): CreateSellerHubDomainResponse
     {
+        $path = '/v1/sellerhub/domains';
+
         $response = $this->apiClient->request(
             'POST',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\CreateSellerHubDomainException(
+            throw new CreateSellerHubDomainException(
                 'API request failed for createSellerHubDomain',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\CreateSellerHubDomainResponse::fromPsrResponse($response);
+        return CreateSellerHubDomainResponse::fromPsrResponse($response);
     }
 
     /**
      * Get a specific SellerHub domain.
      */
-    public function getSellerHubDomain(\CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainResponse
+    public function getSellerHubDomain(GetSellerHubDomainRequest $request): GetSellerHubDomainResponse
     {
+        $path = '/v1/sellerhub/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetSellerHubDomainException(
+            throw new GetSellerHubDomainException(
                 'API request failed for getSellerHubDomain',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainResponse::fromPsrResponse($response);
+        return GetSellerHubDomainResponse::fromPsrResponse($response);
     }
 
     /**
      * Update a SellerHub domain.
      */
-    public function updateSellerHubDomain(\CommunitySDKs\Spaceship\DTO\Request\UpdateSellerHubDomainRequest $request): \CommunitySDKs\Spaceship\DTO\Response\UpdateSellerHubDomainResponse
+    public function updateSellerHubDomain(UpdateSellerHubDomainRequest $request): UpdateSellerHubDomainResponse
     {
+        $path = '/v1/sellerhub/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'PATCH',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\UpdateSellerHubDomainException(
+            throw new UpdateSellerHubDomainException(
                 'API request failed for updateSellerHubDomain',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\UpdateSellerHubDomainResponse::fromPsrResponse($response);
+        return UpdateSellerHubDomainResponse::fromPsrResponse($response);
     }
 
     /**
      * Delete a SellerHub domain.
      */
-    public function deleteSellerHubDomain(\CommunitySDKs\Spaceship\DTO\Request\DeleteSellerHubDomainRequest $request): \CommunitySDKs\Spaceship\DTO\Response\DeleteSellerHubDomainResponse
+    public function deleteSellerHubDomain(DeleteSellerHubDomainRequest $request): DeleteSellerHubDomainResponse
     {
+        $path = '/v1/sellerhub/domains/' . $request->domain;
+
         $response = $this->apiClient->request(
             'DELETE',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\DeleteSellerHubDomainException(
+            throw new DeleteSellerHubDomainException(
                 'API request failed for deleteSellerHubDomain',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\DeleteSellerHubDomainResponse::fromPsrResponse($response);
+        return DeleteSellerHubDomainResponse::fromPsrResponse($response);
     }
 
     /**
      * Get verification records.
      */
-    public function getVerificationRecords(\CommunitySDKs\Spaceship\DTO\Request\GetVerificationRecordsRequest $request): \CommunitySDKs\Spaceship\DTO\Response\GetVerificationRecordsResponse
+    public function getVerificationRecords(GetVerificationRecordsRequest $request): GetVerificationRecordsResponse
     {
+        $path = '/v1/sellerhub/verification-records';
+
         $response = $this->apiClient->request(
             'GET',
-            $request->resolvePath(),
+            $path,
             $request->toQueryParams(),
             $request->toHeaders(),
             $request->toBody(),
         );
         if ($response->getStatusCode() >= 400) {
-            throw new \CommunitySDKs\Spaceship\Exception\Operation\GetVerificationRecordsException(
+            throw new GetVerificationRecordsException(
                 'API request failed for getVerificationRecords',
                 $response->getStatusCode(),
                 $response->getHeaders(),
                 (string) $response->getBody(),
             );
         }
-        return \CommunitySDKs\Spaceship\DTO\Response\GetVerificationRecordsResponse::fromPsrResponse($response);
+        return GetVerificationRecordsResponse::fromPsrResponse($response);
     }
-
 }

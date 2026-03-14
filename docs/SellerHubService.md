@@ -1,121 +1,37 @@
 # SellerHubService
 
-## createCheckoutLink
+Manual request DTO construction is required.
 
-- Purpose: Create a checkout link
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\CreateCheckoutLinkRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\CreateCheckoutLinkResponse
-- Method/Path: POST /v1/sellerhub/checkout-links
+## Methods
 
-Example input data:
+- `createCheckoutLink` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateCheckoutLinkRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\CreateCheckoutLinkResponse` -> `POST /v1/sellerhub/checkout-links`
+- `getSellerHubDomainList` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainListRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetSellerHubDomainListResponse` -> `GET /v1/sellerhub/domains`
+- `createSellerHubDomain` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateSellerHubDomainRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\CreateSellerHubDomainResponse` -> `POST /v1/sellerhub/domains`
+- `getSellerHubDomain` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetSellerHubDomainResponse` -> `GET /v1/sellerhub/domains/{domain}`
+- `updateSellerHubDomain` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\UpdateSellerHubDomainRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\UpdateSellerHubDomainResponse` -> `PATCH /v1/sellerhub/domains/{domain}`
+- `deleteSellerHubDomain` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\DeleteSellerHubDomainRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\DeleteSellerHubDomainResponse` -> `DELETE /v1/sellerhub/domains/{domain}`
+- `getVerificationRecords` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetVerificationRecordsRequest` -> `CommunitySDKs\Spaceship\DTO\SellerHub\Response\GetVerificationRecordsResponse` -> `GET /v1/sellerhub/verification-records`
+
+## Example
+
 ```php
-$request = CreateCheckoutLinkRequest::sample();
-```
+use CommunitySDKs\Spaceship\DTO\Common\Schema\Currency;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\CreateCheckoutLinkRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Request\GetSellerHubDomainListRequest;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Enum\CheckoutLinkType;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\CreateCheckoutLinkRequest as CreateCheckoutLinkBody;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\Price;
+use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerhubDomainName;
 
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## getSellerHubDomainList
-
-- Purpose: Get SellerHub domains list
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainListRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainListResponse
-- Method/Path: GET /v1/sellerhub/domains
-
-Example input data:
-```php
-$request = GetSellerHubDomainListRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## createSellerHubDomain
-
-- Purpose: Create a SellerHub domain
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\CreateSellerHubDomainRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\CreateSellerHubDomainResponse
-- Method/Path: POST /v1/sellerhub/domains
-
-Example input data:
-```php
-$request = CreateSellerHubDomainRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## getSellerHubDomain
-
-- Purpose: Get a specific SellerHub domain
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\GetSellerHubDomainRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\GetSellerHubDomainResponse
-- Method/Path: GET /v1/sellerhub/domains/{domain}
-
-Example input data:
-```php
-$request = GetSellerHubDomainRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## updateSellerHubDomain
-
-- Purpose: Update a SellerHub domain
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\UpdateSellerHubDomainRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\UpdateSellerHubDomainResponse
-- Method/Path: PATCH /v1/sellerhub/domains/{domain}
-
-Example input data:
-```php
-$request = UpdateSellerHubDomainRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## deleteSellerHubDomain
-
-- Purpose: Delete a SellerHub domain
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\DeleteSellerHubDomainRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\DeleteSellerHubDomainResponse
-- Method/Path: DELETE /v1/sellerhub/domains/{domain}
-
-Example input data:
-```php
-$request = DeleteSellerHubDomainRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
-```
-
-## getVerificationRecords
-
-- Purpose: Get verification records
-- Request DTO: CommunitySDKs\Spaceship\DTO\Request\GetVerificationRecordsRequest
-- Response DTO: CommunitySDKs\Spaceship\DTO\Response\GetVerificationRecordsResponse
-- Method/Path: GET /v1/sellerhub/verification-records
-
-Example input data:
-```php
-$request = GetVerificationRecordsRequest::sample();
-```
-
-Example output JSON:
-```json
-{"ok": true}
+$client->sellerhub()->getSellerHubDomainList(new GetSellerHubDomainListRequest(20, 0));
+$client->sellerhub()->createCheckoutLink(
+	new CreateCheckoutLinkRequest(
+		new CreateCheckoutLinkBody(
+			CheckoutLinkType::fromValue('buyNow'),
+			new Price('12.99', Currency::fromValue('USD')),
+			SellerhubDomainName::fromValue('example.com'),
+		)
+	)
+);
 ```
 
