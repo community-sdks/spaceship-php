@@ -6,11 +6,11 @@ namespace CommunitySDKs\Spaceship\DTO\Domains\Enum;
 
 enum DomainLifecycleStatus: string
 {
-    case CREATING = 'creating';
-    case REGISTERED = 'registered';
-    case GRACE1 = 'grace1';
-    case GRACE2 = 'grace2';
-    case REDEMPTION = 'redemption';
+    case CREATING = "creating";
+    case REGISTERED = "registered";
+    case GRACE1 = "grace1";
+    case GRACE2 = "grace2";
+    case REDEMPTION = "redemption";
 
     public static function fromValue(string $value): self
     {

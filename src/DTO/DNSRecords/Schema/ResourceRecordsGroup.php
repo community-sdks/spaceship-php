@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use InvalidArgumentException;
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class ResourceRecordsGroup extends BaseSchema
+class ResourceRecordsGroup
 {
     public function __construct(
         public readonly string $type
-    ) {}
+    ) {
+        if ($type !== null && !in_array($type, ["custom", "product", "personalNs"], true)) { throw new \InvalidArgumentException("Invalid type"); }
+    }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecordsGroup.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecordsGroup.'),        );
+            array_key_exists('type', $data) ? $data['type'] : throw new \InvalidArgumentException("Missing required field type for ResourceRecordsGroup")
+        );
     }
 
     public function toArray(): array
     {
         $data = [];
         $data['type'] = $this->type;
-
         return $data;
     }
 }

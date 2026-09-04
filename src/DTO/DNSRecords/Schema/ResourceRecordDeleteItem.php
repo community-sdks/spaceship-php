@@ -4,43 +4,34 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class ResourceRecordDeleteItem extends BaseSchema
+class ResourceRecordDeleteItem
 {
     public function __construct(
         public readonly string $type,
-        public readonly HostNameValue $name
-    ) {}
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name
+    ) {
+
+    }
 
     public static function fromArray(array $data): self
     {
-        if (isset($data['type'])) {
-            return match ((string) $data['type']) {
-                'AAAA' => AaaaResourceRecordDeleteItem::fromArray($data),
-                'ALIAS' => AliasResourceRecordDeleteItem::fromArray($data),
-                'A' => AResourceRecordDeleteItem::fromArray($data),
-                'CAA' => CaaResourceRecordDeleteItem::fromArray($data),
-                'CNAME' => CNameResourceRecordDeleteItem::fromArray($data),
-                'HTTPS' => HttpsResourceRecordDeleteItem::fromArray($data),
-                'MX' => MxResourceRecordDeleteItem::fromArray($data),
-                'NS' => NsResourceRecordDeleteItem::fromArray($data),
-                'PTR' => PtrResourceRecordDeleteItem::fromArray($data),
-                'SRV' => SrvResourceRecordDeleteItem::fromArray($data),
-                'SVCB' => SvcbResourceRecordDeleteItem::fromArray($data),
-                'TLSA' => TlsaResourceRecordDeleteItem::fromArray($data),
-                'TXT' => TxtResourceRecordDeleteItem::fromArray($data),
-                default => new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecordDeleteItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecordDeleteItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecordDeleteItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecordDeleteItem.'),                ),
-            };
+        $type = $data['type'] ?? null;
+        switch ($type) {
+            case 'AAAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AaaaResourceRecordDeleteItem::fromArray($data);
+            case 'ALIAS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AliasResourceRecordDeleteItem::fromArray($data);
+            case 'A': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AResourceRecordDeleteItem::fromArray($data);
+            case 'CAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CaaResourceRecordDeleteItem::fromArray($data);
+            case 'CNAME': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CNameResourceRecordDeleteItem::fromArray($data);
+            case 'HTTPS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\HttpsResourceRecordDeleteItem::fromArray($data);
+            case 'MX': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\MxResourceRecordDeleteItem::fromArray($data);
+            case 'NS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\NsResourceRecordDeleteItem::fromArray($data);
+            case 'PTR': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\PtrResourceRecordDeleteItem::fromArray($data);
+            case 'SRV': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SrvResourceRecordDeleteItem::fromArray($data);
+            case 'SVCB': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SvcbResourceRecordDeleteItem::fromArray($data);
+            case 'TLSA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TlsaResourceRecordDeleteItem::fromArray($data);
+            case 'TXT': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TxtResourceRecordDeleteItem::fromArray($data);
+            default: throw new \InvalidArgumentException("Unknown discriminator for ResourceRecordDeleteItem");
         }
-
-        return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecordDeleteItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecordDeleteItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecordDeleteItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecordDeleteItem.'),        );
     }
 
     public function toArray(): array
@@ -48,7 +39,6 @@ class ResourceRecordDeleteItem extends BaseSchema
         $data = [];
         $data['type'] = $this->type;
         $data['name'] = $this->name->toValue();
-
         return $data;
     }
 }

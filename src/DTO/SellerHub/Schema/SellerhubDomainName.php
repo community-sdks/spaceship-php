@@ -4,5 +4,17 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\SellerHub\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class SellerhubDomainName extends BaseSchema {}
+final class SellerhubDomainName
+{
+    public function __construct(public readonly string $value) {}
+
+    public static function fromValue(string $value): self
+    {
+        return new self($value);
+    }
+
+    public function toValue(): string
+    {
+        return $this->value;
+    }
+}

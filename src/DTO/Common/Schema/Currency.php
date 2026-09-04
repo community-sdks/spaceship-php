@@ -4,5 +4,17 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\Common\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class Currency extends BaseSchema {}
+final class Currency
+{
+    public function __construct(public readonly string $value) {}
+
+    public static function fromValue(string $value): self
+    {
+        return new self($value);
+    }
+
+    public function toValue(): string
+    {
+        return $this->value;
+    }
+}

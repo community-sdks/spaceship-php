@@ -9,6 +9,7 @@ Replace the placeholder IDs, domains, contact handles, and payload values before
 - SPACESHIP_API_KEY
 - SPACESHIP_API_SECRET
 - SPACESHIP_API_ENDPOINT (optional custom endpoint override)
+- SPACESHIP_APPLICATION_ID (required for the Hyperlift log example)
 
 ## Run a single service example
 
@@ -36,3 +37,6 @@ SPACESHIP_API_KEY=your_key SPACESHIP_API_SECRET=your_secret php examples/Domains
 - examples/DNSRecordsService.php
 - examples/DomainsService.php
 - examples/SellerHubService.php
+- examples/HyperliftService.php (reads one page of application logs)
+
+See the [main guide](../README.md) for typed response access, pagination, asynchronous operations, and error handling. The [service references](../README.md#documentation) document all endpoints, including SafePay transactions and sold-domain reports.

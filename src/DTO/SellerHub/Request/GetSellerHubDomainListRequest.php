@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\SellerHub\Request;
 
-use CommunitySDKs\Spaceship\DTO\BaseRequest;
-
-final class GetSellerHubDomainListRequest extends BaseRequest
+final class GetSellerHubDomainListRequest extends \CommunitySDKs\Spaceship\DTO\BaseRequest
 {
     public function __construct(
         public readonly int $take,
         public readonly int $skip
     ) {
+
     }
 
-    /**
-     * @return array<string, scalar|list<scalar>>
-     */
     public function toQueryParams(): array
     {
-        return [
-            'take' => $this->take,
-            'skip' => $this->skip,
-        ];
+        $values = [];
+        if ($this->take !== null) { $values['take'] = $this->take; }
+        if ($this->skip !== null) { $values['skip'] = $this->skip; }
+        return $values;
     }
 }

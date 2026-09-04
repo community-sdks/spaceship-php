@@ -54,4 +54,9 @@ final class Client
         return new SellerHubService($this->apiClient);
     }
 
+    public function hyperlift(): \CommunitySDKs\Spaceship\Service\HyperliftService
+    {
+        return new \CommunitySDKs\Spaceship\Service\HyperliftService($this->apiClient);
+    }
+
 }

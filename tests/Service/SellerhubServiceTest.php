@@ -51,7 +51,7 @@ final class SellerhubServiceTest extends TestCase
     {
         $history = [];
         $service = $this->createService([
-            $this->jsonResponse(200, ['items' => []]),
+            $this->jsonResponse(200, ['items' => [], 'total' => 0]),
         ], $history);
         $request = new GetSellerHubDomainListRequest(20, 0);
         $response = $service->getSellerHubDomainList($request);

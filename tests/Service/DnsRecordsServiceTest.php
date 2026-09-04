@@ -58,7 +58,7 @@ final class DnsRecordsServiceTest extends TestCase
     {
         $history = [];
         $service = $this->createService([
-            $this->jsonResponse(200, ['items' => []]),
+            $this->jsonResponse(200, ['items' => [], 'total' => 0]),
         ], $history);
         $request = new GetResourceRecordsListRequest('example.com', 10, 0, []);
         $response = $service->getResourceRecordsList($request);

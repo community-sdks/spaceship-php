@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Exception\ContactsAttributes;
 
-use CommunitySDKs\Spaceship\Exception\Common\ApiException;
-
-final class ReadAttributeDetailsException extends ApiException
+final class ReadAttributeDetailsException extends \CommunitySDKs\Spaceship\Exception\Common\ApiException
 {
 }

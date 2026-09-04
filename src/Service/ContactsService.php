@@ -4,69 +4,27 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Service;
 
-use CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest;
-use CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest;
-use CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse;
-use CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse;
-use CommunitySDKs\Spaceship\Exception\Contacts\ReadDetailsException;
-use CommunitySDKs\Spaceship\Exception\Contacts\SaveDetailsException;
-use CommunitySDKs\Spaceship\Http\ApiClient;
-
 final class ContactsService
 {
-    public function __construct(private readonly ApiClient $apiClient)
+    public function __construct(private readonly \CommunitySDKs\Spaceship\Http\ApiClient $apiClient) {}
+
+    /** Save contact details */
+    public function saveDetails(\CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse
     {
+        $response = $this->apiClient->request('PUT', '/v1/contacts', $request->toQueryParams(), $request->toHeaders(), $request->toBody());
+        if ($response->getStatusCode() >= 400) {
+            throw new \CommunitySDKs\Spaceship\Exception\Contacts\SaveDetailsException("API request failed for saveDetails", $response->getStatusCode(), $response->getHeaders(), (string) $response->getBody());
+        }
+        return \CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse::fromPsrResponse($response);
     }
 
-    /**
-     * Save contact details.
-     */
-    public function saveDetails(SaveDetailsRequest $request): SaveDetailsResponse
+    /** Read contact details */
+    public function readDetails(\CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest $request): \CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse
     {
-        $path = '/v1/contacts';
-
-        $response = $this->apiClient->request(
-            'PUT',
-            $path,
-            $request->toQueryParams(),
-            $request->toHeaders(),
-            $request->toBody(),
-        );
+        $response = $this->apiClient->request('GET', '/v1/contacts/' . rawurlencode($request->contact) . '', $request->toQueryParams(), $request->toHeaders(), $request->toBody());
         if ($response->getStatusCode() >= 400) {
-            throw new SaveDetailsException(
-                'API request failed for saveDetails',
-                $response->getStatusCode(),
-                $response->getHeaders(),
-                (string) $response->getBody(),
-            );
+            throw new \CommunitySDKs\Spaceship\Exception\Contacts\ReadDetailsException("API request failed for readDetails", $response->getStatusCode(), $response->getHeaders(), (string) $response->getBody());
         }
-
-        return SaveDetailsResponse::fromPsrResponse($response);
-    }
-
-    /**
-     * Read contact details.
-     */
-    public function readDetails(ReadDetailsRequest $request): ReadDetailsResponse
-    {
-        $path = '/v1/contacts/' . $request->contact;
-
-        $response = $this->apiClient->request(
-            'GET',
-            $path,
-            $request->toQueryParams(),
-            $request->toHeaders(),
-            $request->toBody(),
-        );
-        if ($response->getStatusCode() >= 400) {
-            throw new ReadDetailsException(
-                'API request failed for readDetails',
-                $response->getStatusCode(),
-                $response->getHeaders(),
-                (string) $response->getBody(),
-            );
-        }
-
-        return ReadDetailsResponse::fromPsrResponse($response);
+        return \CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse::fromPsrResponse($response);
     }
 }

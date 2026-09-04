@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\SellerHub\Request;
 
-use CommunitySDKs\Spaceship\DTO\BaseRequest;
+final class GetVerificationRecordsRequest extends \CommunitySDKs\Spaceship\DTO\BaseRequest
+{
+    public function __construct(
 
-final class GetVerificationRecordsRequest extends BaseRequest {}
+    ) {
+
+    }
+}

@@ -6,7 +6,7 @@ namespace CommunitySDKs\Spaceship\DTO\SellerHub\Enum;
 
 enum CheckoutLinkType: string
 {
-    case BUY_NOW = 'buyNow';
+    case BUY_NOW = "buyNow";
 
     public static function fromValue(string $value): self
     {

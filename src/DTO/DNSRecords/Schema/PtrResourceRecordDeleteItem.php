@@ -4,35 +4,32 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class PtrResourceRecordDeleteItem extends ResourceRecordDeleteItem
+class PtrResourceRecordDeleteItem extends \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\ResourceRecordDeleteItem
 {
     public function __construct(
         string $type,
-        HostNameValue $name,
-        public readonly HostNameValue $pointer
+        \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name,
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $pointer
     ) {
         parent::__construct($type, $name);
-        if ($type !== 'PTR') {
-            throw new InvalidArgumentException('Expected type to be ' . 'PTR' . ' in PtrResourceRecordDeleteItem.');
-        }
+        if ($type !== null && !in_array($type, ["PTR"], true)) { throw new \InvalidArgumentException("Invalid type"); }
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in PtrResourceRecordDeleteItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for PtrResourceRecordDeleteItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in PtrResourceRecordDeleteItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for PtrResourceRecordDeleteItem.'),
-            array_key_exists('pointer', $data) ? ($data['pointer'] === null ? throw new InvalidArgumentException('Field pointer cannot be null in PtrResourceRecordDeleteItem.') : HostNameValue::fromValue((string) $data['pointer'])) : throw new InvalidArgumentException('Missing required field pointer for PtrResourceRecordDeleteItem.'),        );
+            array_key_exists('type', $data) ? $data['type'] : throw new \InvalidArgumentException("Missing required field type for PtrResourceRecordDeleteItem"),
+            array_key_exists('name', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['name']) : throw new \InvalidArgumentException("Missing required field name for PtrResourceRecordDeleteItem"),
+            array_key_exists('pointer', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['pointer']) : throw new \InvalidArgumentException("Missing required field pointer for PtrResourceRecordDeleteItem")
+        );
     }
 
     public function toArray(): array
     {
-        $data = parent::toArray();
+        $data = [];
+        $data['type'] = $this->type;
+        $data['name'] = $this->name->toValue();
         $data['pointer'] = $this->pointer->toValue();
-
         return $data;
     }
 }

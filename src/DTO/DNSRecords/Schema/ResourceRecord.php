@@ -4,49 +4,36 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class ResourceRecord extends BaseSchema
+class ResourceRecord
 {
     public function __construct(
         public readonly string $type,
-        public readonly HostNameValue $name,
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name,
         public readonly int|null $ttl,
-        public readonly ResourceRecordsGroup $group
-    ) {}
+        public readonly \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\ResourceRecordsGroup $group
+    ) {
+
+    }
 
     public static function fromArray(array $data): self
     {
-        if (isset($data['type'])) {
-            return match ((string) $data['type']) {
-                'AAAA' => AaaaResourceRecord::fromArray($data),
-                'ALIAS' => AliasResourceRecord::fromArray($data),
-                'A' => AResourceRecord::fromArray($data),
-                'CAA' => CaaResourceRecord::fromArray($data),
-                'CNAME' => CNameResourceRecord::fromArray($data),
-                'HTTPS' => HttpsResourceRecord::fromArray($data),
-                'MX' => MxResourceRecord::fromArray($data),
-                'NS' => NsResourceRecord::fromArray($data),
-                'PTR' => PtrResourceRecord::fromArray($data),
-                'SRV' => SrvResourceRecord::fromArray($data),
-                'SVCB' => SvcbResourceRecord::fromArray($data),
-                'TLSA' => TlsaResourceRecord::fromArray($data),
-                'TXT' => TxtResourceRecord::fromArray($data),
-                default => new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecord.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecord.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecord.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecord.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,
-            array_key_exists('group', $data) ? ($data['group'] === null ? throw new InvalidArgumentException('Field group cannot be null in ResourceRecord.') : ResourceRecordsGroup::fromArray((array) $data['group'])) : throw new InvalidArgumentException('Missing required field group for ResourceRecord.'),                ),
-            };
+        $type = $data['type'] ?? null;
+        switch ($type) {
+            case 'AAAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AaaaResourceRecord::fromArray($data);
+            case 'ALIAS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AliasResourceRecord::fromArray($data);
+            case 'A': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AResourceRecord::fromArray($data);
+            case 'CAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CaaResourceRecord::fromArray($data);
+            case 'CNAME': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CNameResourceRecord::fromArray($data);
+            case 'HTTPS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\HttpsResourceRecord::fromArray($data);
+            case 'MX': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\MxResourceRecord::fromArray($data);
+            case 'NS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\NsResourceRecord::fromArray($data);
+            case 'PTR': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\PtrResourceRecord::fromArray($data);
+            case 'SRV': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SrvResourceRecord::fromArray($data);
+            case 'SVCB': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SvcbResourceRecord::fromArray($data);
+            case 'TLSA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TlsaResourceRecord::fromArray($data);
+            case 'TXT': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TxtResourceRecord::fromArray($data);
+            default: throw new \InvalidArgumentException("Unknown discriminator for ResourceRecord");
         }
-
-        return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecord.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecord.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecord.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecord.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,
-            array_key_exists('group', $data) ? ($data['group'] === null ? throw new InvalidArgumentException('Field group cannot be null in ResourceRecord.') : ResourceRecordsGroup::fromArray((array) $data['group'])) : throw new InvalidArgumentException('Missing required field group for ResourceRecord.'),        );
     }
 
     public function toArray(): array
@@ -54,11 +41,8 @@ class ResourceRecord extends BaseSchema
         $data = [];
         $data['type'] = $this->type;
         $data['name'] = $this->name->toValue();
-        if ($this->ttl !== null) {
-            $data['ttl'] = $this->ttl;
-        }
+        if ($this->ttl !== null) { $data['ttl'] = $this->ttl; }
         $data['group'] = $this->group->toArray();
-
         return $data;
     }
 }

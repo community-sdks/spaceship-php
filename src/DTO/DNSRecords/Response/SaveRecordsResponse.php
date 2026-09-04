@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Response;
 
-use Psr\Http\Message\ResponseInterface;
-
 final class SaveRecordsResponse
 {
-    /**
-     * @param array<string, string|string[]> $headers
-     */
+    /** @param array<string, list<string>> $headers */
     public function __construct(
         public readonly int $statusCode,
         public readonly array $headers,
-        public readonly ?array $data = null,
-    ) {
+        public readonly null $data = null
+    ) {}
+
+    public function operationId(): ?\CommunitySDKs\Spaceship\DTO\Common\Schema\OperationId
+    {
+        foreach ($this->headers as $name => $values) {
+            if (strtolower($name) === "spaceship-operation-id" && isset($values[0])) {
+                return new \CommunitySDKs\Spaceship\DTO\Common\Schema\OperationId($values[0]);
+            }
+        }
+        return null;
     }
 
-    public static function fromPsrResponse(ResponseInterface $response): self
+    public static function fromPsrResponse(\Psr\Http\Message\ResponseInterface $response): self
     {
-        $body = (string) $response->getBody();
-        $decoded = $body === '' ? null : (array) json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        return new self($response->getStatusCode(), $response->getHeaders(), $decoded);
+        return new self($response->getStatusCode(), $response->getHeaders(), null);
     }
 }

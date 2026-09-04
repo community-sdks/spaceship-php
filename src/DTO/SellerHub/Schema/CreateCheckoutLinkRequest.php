@@ -4,34 +4,34 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\SellerHub\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-use CommunitySDKs\Spaceship\DTO\SellerHub\Enum\CheckoutLinkType;
-use InvalidArgumentException;
-final class CreateCheckoutLinkRequest extends BaseSchema
+class CreateCheckoutLinkRequest
 {
     public function __construct(
-        public readonly CheckoutLinkType $type,
-        public readonly Price|null $basePrice,
-        public readonly SellerhubDomainName $domainName
-    ) {}
+        public readonly \CommunitySDKs\Spaceship\DTO\SellerHub\Enum\CheckoutLinkType $type,
+        public readonly \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\Price|null $basePrice,
+        public readonly \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerhubDomainName $domainName,
+        public readonly \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\FeePercentageShare|null $feePercentageShare = null
+    ) {
+
+    }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in CreateCheckoutLinkRequest.') : CheckoutLinkType::fromValue((string) $data['type'])) : throw new InvalidArgumentException('Missing required field type for CreateCheckoutLinkRequest.'),
-            array_key_exists('basePrice', $data) && $data['basePrice'] !== null ? Price::fromArray((array) $data['basePrice']) : null,
-            array_key_exists('domainName', $data) ? ($data['domainName'] === null ? throw new InvalidArgumentException('Field domainName cannot be null in CreateCheckoutLinkRequest.') : SellerhubDomainName::fromValue((string) $data['domainName'])) : throw new InvalidArgumentException('Missing required field domainName for CreateCheckoutLinkRequest.'),        );
+            array_key_exists('type', $data) ? \CommunitySDKs\Spaceship\DTO\SellerHub\Enum\CheckoutLinkType::fromValue($data['type']) : throw new \InvalidArgumentException("Missing required field type for CreateCheckoutLinkRequest"),
+            array_key_exists('basePrice', $data) ? ($data['basePrice'] === null ? null : \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\Price::fromArray($data['basePrice'])) : null,
+            array_key_exists('domainName', $data) ? \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerhubDomainName::fromValue($data['domainName']) : throw new \InvalidArgumentException("Missing required field domainName for CreateCheckoutLinkRequest"),
+            array_key_exists('feePercentageShare', $data) ? ($data['feePercentageShare'] === null ? null : \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\FeePercentageShare::fromArray($data['feePercentageShare'])) : null
+        );
     }
 
     public function toArray(): array
     {
         $data = [];
         $data['type'] = $this->type->toValue();
-        if ($this->basePrice !== null) {
-            $data['basePrice'] = $this->basePrice->toArray();
-        }
+        if ($this->basePrice !== null) { $data['basePrice'] = $this->basePrice->toArray(); }
         $data['domainName'] = $this->domainName->toValue();
-
+        if ($this->feePercentageShare !== null) { $data['feePercentageShare'] = $this->feePercentageShare->toArray(); }
         return $data;
     }
 }

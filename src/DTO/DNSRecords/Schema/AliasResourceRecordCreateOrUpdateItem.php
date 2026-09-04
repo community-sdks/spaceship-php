@@ -4,37 +4,35 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class AliasResourceRecordCreateOrUpdateItem extends ResourceRecordCreateOrUpdateItem
+class AliasResourceRecordCreateOrUpdateItem extends \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\ResourceRecordCreateOrUpdateItem
 {
     public function __construct(
         string $type,
-        HostNameValue $name,
+        \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name,
         int|null $ttl,
-        public readonly HostNameValue $aliasName
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $aliasName
     ) {
         parent::__construct($type, $name, $ttl);
-        if ($type !== 'ALIAS') {
-            throw new InvalidArgumentException('Expected type to be ' . 'ALIAS' . ' in AliasResourceRecordCreateOrUpdateItem.');
-        }
+        if ($type !== null && !in_array($type, ["ALIAS"], true)) { throw new \InvalidArgumentException("Invalid type"); }
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in AliasResourceRecordCreateOrUpdateItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for AliasResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in AliasResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for AliasResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,
-            array_key_exists('aliasName', $data) ? ($data['aliasName'] === null ? throw new InvalidArgumentException('Field aliasName cannot be null in AliasResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['aliasName'])) : throw new InvalidArgumentException('Missing required field aliasName for AliasResourceRecordCreateOrUpdateItem.'),        );
+            array_key_exists('type', $data) ? $data['type'] : throw new \InvalidArgumentException("Missing required field type for AliasResourceRecordCreateOrUpdateItem"),
+            array_key_exists('name', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['name']) : throw new \InvalidArgumentException("Missing required field name for AliasResourceRecordCreateOrUpdateItem"),
+            array_key_exists('ttl', $data) ? ($data['ttl'] === null ? null : $data['ttl']) : null,
+            array_key_exists('aliasName', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['aliasName']) : throw new \InvalidArgumentException("Missing required field aliasName for AliasResourceRecordCreateOrUpdateItem")
+        );
     }
 
     public function toArray(): array
     {
-        $data = parent::toArray();
+        $data = [];
+        $data['type'] = $this->type;
+        $data['name'] = $this->name->toValue();
+        if ($this->ttl !== null) { $data['ttl'] = $this->ttl; }
         $data['aliasName'] = $this->aliasName->toValue();
-
         return $data;
     }
 }

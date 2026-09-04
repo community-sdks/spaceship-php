@@ -4,37 +4,35 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class NsResourceRecordCreateOrUpdateItem extends ResourceRecordCreateOrUpdateItem
+class NsResourceRecordCreateOrUpdateItem extends \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\ResourceRecordCreateOrUpdateItem
 {
     public function __construct(
         string $type,
-        HostNameValue $name,
+        \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name,
         int|null $ttl,
-        public readonly HostNameValue $nameserver
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $nameserver
     ) {
         parent::__construct($type, $name, $ttl);
-        if ($type !== 'NS') {
-            throw new InvalidArgumentException('Expected type to be ' . 'NS' . ' in NsResourceRecordCreateOrUpdateItem.');
-        }
+        if ($type !== null && !in_array($type, ["NS"], true)) { throw new \InvalidArgumentException("Invalid type"); }
     }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in NsResourceRecordCreateOrUpdateItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for NsResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in NsResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for NsResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,
-            array_key_exists('nameserver', $data) ? ($data['nameserver'] === null ? throw new InvalidArgumentException('Field nameserver cannot be null in NsResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['nameserver'])) : throw new InvalidArgumentException('Missing required field nameserver for NsResourceRecordCreateOrUpdateItem.'),        );
+            array_key_exists('type', $data) ? $data['type'] : throw new \InvalidArgumentException("Missing required field type for NsResourceRecordCreateOrUpdateItem"),
+            array_key_exists('name', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['name']) : throw new \InvalidArgumentException("Missing required field name for NsResourceRecordCreateOrUpdateItem"),
+            array_key_exists('ttl', $data) ? ($data['ttl'] === null ? null : $data['ttl']) : null,
+            array_key_exists('nameserver', $data) ? \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue::fromValue($data['nameserver']) : throw new \InvalidArgumentException("Missing required field nameserver for NsResourceRecordCreateOrUpdateItem")
+        );
     }
 
     public function toArray(): array
     {
-        $data = parent::toArray();
+        $data = [];
+        $data['type'] = $this->type;
+        $data['name'] = $this->name->toValue();
+        if ($this->ttl !== null) { $data['ttl'] = $this->ttl; }
         $data['nameserver'] = $this->nameserver->toValue();
-
         return $data;
     }
 }

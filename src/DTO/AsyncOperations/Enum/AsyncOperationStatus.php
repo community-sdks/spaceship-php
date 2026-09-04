@@ -6,9 +6,9 @@ namespace CommunitySDKs\Spaceship\DTO\AsyncOperations\Enum;
 
 enum AsyncOperationStatus: string
 {
-    case PENDING = 'pending';
-    case FAILED = 'failed';
-    case SUCCESS = 'success';
+    case PENDING = "pending";
+    case FAILED = "failed";
+    case SUCCESS = "success";
 
     public static function fromValue(string $value): self
     {

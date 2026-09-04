@@ -4,5 +4,17 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\Domains\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class IpAddress extends BaseSchema {}
+final class IpAddress
+{
+    public function __construct(public readonly string $value) {}
+
+    public static function fromValue(string $value): self
+    {
+        return new self($value);
+    }
+
+    public function toValue(): string
+    {
+        return $this->value;
+    }
+}

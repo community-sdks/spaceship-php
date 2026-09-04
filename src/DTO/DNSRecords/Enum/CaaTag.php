@@ -6,9 +6,9 @@ namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Enum;
 
 enum CaaTag: string
 {
-    case ISSUE = 'issue';
-    case ISSUEWILD = 'issuewild';
-    case IODEF = 'iodef';
+    case ISSUE = "issue";
+    case ISSUEWILD = "issuewild";
+    case IODEF = "iodef";
 
     public static function fromValue(string $value): self
     {

@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\AsyncOperations\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-
-final class AsyncOperationDetails extends BaseSchema
+final class AsyncOperationDetails
 {
-    public function __construct() {}
+    /** @param array<string, mixed> $items */
+    public function __construct(public readonly array $items = []) {}
 
     public static function fromArray(array $data): self
     {
-        return new self();
+        return new self($data);
     }
 
     public function toArray(): array
     {
-        $data = [];
-
-        return $data;
+        return $this->items;
     }
 }

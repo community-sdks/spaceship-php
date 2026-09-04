@@ -62,7 +62,7 @@ final class DomainsServiceTest extends TestCase
     {
         $history = [];
         $service = $this->createService([
-            $this->jsonResponse(200, ['items' => []]),
+            $this->jsonResponse(200, ['items' => [], 'total' => 0]),
         ], $history);
         $request = new GetDomainListRequest(10, 0, []);
         $response = $service->getDomainList($request);

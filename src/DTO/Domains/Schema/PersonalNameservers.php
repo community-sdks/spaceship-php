@@ -4,31 +4,28 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\Domains\Schema;
 
-use InvalidArgumentException;
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class PersonalNameservers extends BaseSchema
+class PersonalNameservers
 {
     /**
-     * @var list<PersonalNameserverRecord>
-     */
-    /**
-     * @param list<PersonalNameserverRecord> $records
+     * @param list<\CommunitySDKs\Spaceship\DTO\Domains\Schema\PersonalNameserverRecord> $records
      */
     public function __construct(
         public readonly array $records
-    ) {}
+    ) {
+        if ($records !== null) { foreach ($records as $item) { \CommunitySDKs\Spaceship\DTO\ValueValidator::check($item, 'CommunitySDKs\\Spaceship\\DTO\\Domains\\Schema\\PersonalNameserverRecord'); } }
+    }
 
     public static function fromArray(array $data): self
     {
         return new self(
-            array_key_exists('records', $data) ? ($data['records'] === null ? throw new InvalidArgumentException('Field records cannot be null in PersonalNameservers.') : array_map(static fn (mixed $item): PersonalNameserverRecord => PersonalNameserverRecord::fromArray((array) $item), (array) $data['records'])) : throw new InvalidArgumentException('Missing required field records for PersonalNameservers.'),        );
+            array_key_exists('records', $data) ? array_map(static fn ($item) => \CommunitySDKs\Spaceship\DTO\Domains\Schema\PersonalNameserverRecord::fromArray($item), $data['records']) : throw new \InvalidArgumentException("Missing required field records for PersonalNameservers")
+        );
     }
 
     public function toArray(): array
     {
         $data = [];
-        $data['records'] = array_map(static fn (mixed $item): mixed => $item->toArray(), $this->records);
-
+        $data['records'] = array_map(static fn ($item) => $item->toArray(), $this->records);
         return $data;
     }
 }

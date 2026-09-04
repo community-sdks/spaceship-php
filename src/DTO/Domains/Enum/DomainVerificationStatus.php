@@ -6,9 +6,9 @@ namespace CommunitySDKs\Spaceship\DTO\Domains\Enum;
 
 enum DomainVerificationStatus: string
 {
-    case VERIFICATION = 'verification';
-    case SUCCESS = 'success';
-    case FAILED = 'failed';
+    case VERIFICATION = "verification";
+    case SUCCESS = "success";
+    case FAILED = "failed";
 
     public static function fromValue(string $value): self
     {

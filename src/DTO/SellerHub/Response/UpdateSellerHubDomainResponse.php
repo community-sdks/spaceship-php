@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\SellerHub\Response;
 
-use CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerHubDomainResponse;
-use Psr\Http\Message\ResponseInterface;
-
 final class UpdateSellerHubDomainResponse
 {
-    /**
-     * @param array<string, string|string[]> $headers
-     */
+    /** @param array<string, list<string>> $headers */
     public function __construct(
         public readonly int $statusCode,
         public readonly array $headers,
-        public readonly SellerHubDomainResponse $data,
-    ) {
+        public readonly \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerHubDomainResponse $data
+    ) {}
+
+    public function operationId(): ?\CommunitySDKs\Spaceship\DTO\Common\Schema\OperationId
+    {
+        foreach ($this->headers as $name => $values) {
+            if (strtolower($name) === "spaceship-operation-id" && isset($values[0])) {
+                return new \CommunitySDKs\Spaceship\DTO\Common\Schema\OperationId($values[0]);
+            }
+        }
+        return null;
     }
 
-    public static function fromPsrResponse(ResponseInterface $response): self
+    public static function fromPsrResponse(\Psr\Http\Message\ResponseInterface $response): self
     {
-        $decoded = (array) json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-
-        return new self($response->getStatusCode(), $response->getHeaders(), SellerHubDomainResponse::fromArray($decoded));
+        $decoded = json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        return new self($response->getStatusCode(), $response->getHeaders(), \CommunitySDKs\Spaceship\DTO\SellerHub\Schema\SellerHubDomainResponse::fromArray($decoded));
     }
 }

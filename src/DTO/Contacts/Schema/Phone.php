@@ -4,5 +4,17 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\Contacts\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-final class Phone extends BaseSchema {}
+final class Phone
+{
+    public function __construct(public readonly string $value) {}
+
+    public static function fromValue(string $value): self
+    {
+        return new self($value);
+    }
+
+    public function toValue(): string
+    {
+        return $this->value;
+    }
+}

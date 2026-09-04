@@ -6,8 +6,8 @@ namespace CommunitySDKs\Spaceship\DTO\Domains\Enum;
 
 enum DomainPrivacyLevel: string
 {
-    case PUBLIC = 'public';
-    case HIGH = 'high';
+    case PUBLIC = "public";
+    case HIGH = "high";
 
     public static function fromValue(string $value): self
     {

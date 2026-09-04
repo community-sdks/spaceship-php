@@ -4,46 +4,35 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\DTO\DNSRecords\Schema;
 
-use CommunitySDKs\Spaceship\DTO\BaseSchema;
-use CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue;
-use InvalidArgumentException;
-
-class ResourceRecordCreateOrUpdateItem extends BaseSchema
+class ResourceRecordCreateOrUpdateItem
 {
     public function __construct(
         public readonly string $type,
-        public readonly HostNameValue $name,
-        public readonly int|null $ttl
-    ) {}
+        public readonly \CommunitySDKs\Spaceship\DTO\Common\Schema\HostNameValue $name,
+        public readonly int|null $ttl = null
+    ) {
+
+    }
 
     public static function fromArray(array $data): self
     {
-        if (isset($data['type'])) {
-            return match ((string) $data['type']) {
-                'AAAA' => AaaaResourceRecordCreateOrUpdateItem::fromArray($data),
-                'ALIAS' => AliasResourceRecordCreateOrUpdateItem::fromArray($data),
-                'A' => AResourceRecordCreateOrUpdateItem::fromArray($data),
-                'CAA' => CaaResourceRecordCreateOrUpdateItem::fromArray($data),
-                'CNAME' => CNameResourceRecordCreateOrUpdateItem::fromArray($data),
-                'HTTPS' => HttpsResourceRecordCreateOrUpdateItem::fromArray($data),
-                'MX' => MxResourceRecordCreateOrUpdateItem::fromArray($data),
-                'NS' => NsResourceRecordCreateOrUpdateItem::fromArray($data),
-                'PTR' => PtrResourceRecordCreateOrUpdateItem::fromArray($data),
-                'SRV' => SrvResourceRecordCreateOrUpdateItem::fromArray($data),
-                'SVCB' => SvcbResourceRecordCreateOrUpdateItem::fromArray($data),
-                'TLSA' => TlsaResourceRecordCreateOrUpdateItem::fromArray($data),
-                'TXT' => TxtResourceRecordCreateOrUpdateItem::fromArray($data),
-                default => new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecordCreateOrUpdateItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,                ),
-            };
+        $type = $data['type'] ?? null;
+        switch ($type) {
+            case 'AAAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AaaaResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'ALIAS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AliasResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'A': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\AResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'CAA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CaaResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'CNAME': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\CNameResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'HTTPS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\HttpsResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'MX': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\MxResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'NS': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\NsResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'PTR': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\PtrResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'SRV': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SrvResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'SVCB': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\SvcbResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'TLSA': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TlsaResourceRecordCreateOrUpdateItem::fromArray($data);
+            case 'TXT': return \CommunitySDKs\Spaceship\DTO\DNSRecords\Schema\TxtResourceRecordCreateOrUpdateItem::fromArray($data);
+            default: throw new \InvalidArgumentException("Unknown discriminator for ResourceRecordCreateOrUpdateItem");
         }
-
-        return new self(
-            array_key_exists('type', $data) ? ($data['type'] === null ? throw new InvalidArgumentException('Field type cannot be null in ResourceRecordCreateOrUpdateItem.') : (string) $data['type']) : throw new InvalidArgumentException('Missing required field type for ResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('name', $data) ? ($data['name'] === null ? throw new InvalidArgumentException('Field name cannot be null in ResourceRecordCreateOrUpdateItem.') : HostNameValue::fromValue((string) $data['name'])) : throw new InvalidArgumentException('Missing required field name for ResourceRecordCreateOrUpdateItem.'),
-            array_key_exists('ttl', $data) && $data['ttl'] !== null ? (int) $data['ttl'] : null,        );
     }
 
     public function toArray(): array
@@ -51,10 +40,7 @@ class ResourceRecordCreateOrUpdateItem extends BaseSchema
         $data = [];
         $data['type'] = $this->type;
         $data['name'] = $this->name->toValue();
-        if ($this->ttl !== null) {
-            $data['ttl'] = $this->ttl;
-        }
-
+        if ($this->ttl !== null) { $data['ttl'] = $this->ttl; }
         return $data;
     }
 }

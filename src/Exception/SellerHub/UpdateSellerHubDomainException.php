@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace CommunitySDKs\Spaceship\Exception\SellerHub;
 
-use CommunitySDKs\Spaceship\Exception\Common\ApiException;
-
-final class UpdateSellerHubDomainException extends ApiException
+final class UpdateSellerHubDomainException extends \CommunitySDKs\Spaceship\Exception\Common\ApiException
 {
 }

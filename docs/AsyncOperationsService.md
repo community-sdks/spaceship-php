@@ -1,20 +1,19 @@
 # AsyncOperationsService
 
-Manual request DTO construction is required. The SDK no longer provides generated sample helpers.
+Generated from the bundled `openapi.json`. Optional request arguments default to `null` and are omitted from the wire. Response bodies are hydrated into DTOs; empty responses have `data === null`.
 
-## Method
+## `getAsyncOperationDetails`
 
-- `getAsyncOperationDetails`
-	Request DTO: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Request\GetAsyncOperationDetailsRequest`
-	Response DTO: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Response\GetAsyncOperationDetailsResponse`
-	Method/Path: `GET /v1/async-operations/{operationId}`
+Obtain async operation details
 
-## Example
+`GET /v1/async-operations/{operationId}`
 
-```php
-use CommunitySDKs\Spaceship\DTO\AsyncOperations\Request\GetAsyncOperationDetailsRequest;
+- Request: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Request\GetAsyncOperationDetailsRequest`
+- Response: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Response\GetAsyncOperationDetailsResponse`
+- `data`: `CommunitySDKs\Spaceship\DTO\AsyncOperations\Schema\AsyncOperationData`
+- Exception: `CommunitySDKs\Spaceship\Exception\AsyncOperations\GetAsyncOperationDetailsException`
+- Scopes: `asyncoperations:read`
 
-$request = new GetAsyncOperationDetailsRequest('operation_123');
-$response = $client->asyncOperations()->getAsyncOperationDetails($request);
-```
-
+| Argument | PHP type | Required | Description |
+|---|---|---|---|
+| `operationId` | `string` | yes | Unique ID of async operation |

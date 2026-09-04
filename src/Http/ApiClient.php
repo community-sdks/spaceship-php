@@ -31,6 +31,7 @@ final class ApiClient
         ], $headers);
 
         $options = [
+            'http_errors' => false,
             'headers' => $requestHeaders,
             'query' => $query,
             'timeout' => $this->config->timeoutSeconds,
@@ -38,7 +39,7 @@ final class ApiClient
 
         if ($jsonBody !== null) {
             $options['headers']['Content-Type'] = 'application/json';
-            $options['body'] = Utils::streamFor((string) json_encode($jsonBody, JSON_UNESCAPED_SLASHES));
+            $options['body'] = Utils::streamFor(json_encode($jsonBody, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
         }
 
         return $this->httpClient->request($method, $this->config->baseUrl() . $path, $options);

@@ -1,47 +1,35 @@
 # ContactsService
 
-Manual request DTO construction is required.
+Generated from the bundled `openapi.json`. Optional request arguments default to `null` and are omitted from the wire. Response bodies are hydrated into DTOs; empty responses have `data === null`.
 
-## Methods
+## `saveDetails`
 
-- `saveDetails`
-	Request DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest`
-	Response DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse`
-	Method/Path: `PUT /v1/contacts`
+Save contact details
 
-- `readDetails`
-	Request DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest`
-	Response DTO: `CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse`
-	Method/Path: `GET /v1/contacts/{contact}`
+`PUT /v1/contacts`
 
-## Example
+- Request: `CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest`
+- Response: `CommunitySDKs\Spaceship\DTO\Contacts\Response\SaveDetailsResponse`
+- `data`: `CommunitySDKs\Spaceship\DTO\Contacts\Schema\ContactsSaveResponse`
+- Exception: `CommunitySDKs\Spaceship\Exception\Contacts\SaveDetailsException`
+- Scopes: `contacts:write`
 
-```php
-use CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest;
-use CommunitySDKs\Spaceship\DTO\Contacts\Request\SaveDetailsRequest;
-use CommunitySDKs\Spaceship\DTO\Contacts\Schema\ContactDetails;
-use CommunitySDKs\Spaceship\DTO\Contacts\Schema\CountryCode;
-use CommunitySDKs\Spaceship\DTO\Contacts\Schema\Phone;
+| Argument | PHP type | Required | Description |
+|---|---|---|---|
+| `body` | `CommunitySDKs\Spaceship\DTO\Contacts\Schema\ContactDetails` | yes | Typed JSON body |
 
-$details = new ContactDetails(
-		'Jane',
-		'Doe',
-		'Example LLC',
-		'jane@example.com',
-		'123 Example Street',
-		null,
-		'Phoenix',
-		CountryCode::fromValue('US'),
-		'AZ',
-		'85001',
-		Phone::fromValue('+14805550100'),
-		null,
-		null,
-		null,
-		null,
-);
+## `readDetails`
 
-$client->contacts()->saveDetails(new SaveDetailsRequest($details));
-$client->contacts()->readDetails(new ReadDetailsRequest('contact-handle')); 
-```
+Read contact details
 
+`GET /v1/contacts/{contact}`
+
+- Request: `CommunitySDKs\Spaceship\DTO\Contacts\Request\ReadDetailsRequest`
+- Response: `CommunitySDKs\Spaceship\DTO\Contacts\Response\ReadDetailsResponse`
+- `data`: `CommunitySDKs\Spaceship\DTO\Contacts\Schema\ContactDetails`
+- Exception: `CommunitySDKs\Spaceship\Exception\Contacts\ReadDetailsException`
+- Scopes: `contacts:read`
+
+| Argument | PHP type | Required | Description |
+|---|---|---|---|
+| `contact` | `string` | yes |  |

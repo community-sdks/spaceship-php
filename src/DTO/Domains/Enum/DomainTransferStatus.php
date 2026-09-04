@@ -6,9 +6,9 @@ namespace CommunitySDKs\Spaceship\DTO\Domains\Enum;
 
 enum DomainTransferStatus: string
 {
-    case PENDING = 'pending';
-    case COMPLETED = 'completed';
-    case CANCELLED = 'cancelled';
+    case PENDING = "pending";
+    case COMPLETED = "completed";
+    case CANCELLED = "cancelled";
 
     public static function fromValue(string $value): self
     {
